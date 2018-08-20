@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/DragObj.js"></script>
+    <style>
+        div
+        {
+            margin: auto;
+            width: 780px;
+            height:520px;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+    <script>
+        var div0=document.querySelector("div");
+        var num=0;
+        var img=new Image();
+        img.src="img/golf"+num+".jpg"
+        div0.appendChild(img);
+
+        div0.addEventListener("mousedown",mouseHandler);
+        window.addEventListener("mousedown",windowMouseDownHandler)
+
+        function windowMouseDownHandler(e) {
+            if(!e){
+                e=window.event;
+            }
+            e.preventDefault();
+        }
+        function mouseHandler(e) {
+            if(!e){
+                e=window.event;
+            }
+            if(e.type=="mousedown"){
+                div0.addEventListener("mousemove",mouseHandler);
+                div0.addEventListener("mouseup",mouseHandler);
+                div0.addEventListener("mouseleave",mouseHandler)
+            }else if(e.type=="mousemove"){
+                num+=e.movementX;
+                if(num<0){
+                    num=71;
+                }else if(num>71){
+                    num=0;
+                }
+                img.src="img/golf"+num+".jpg"
+            }else if(e.type=="mouseup" || e.type=="mouseleave"){
+                div0.removeEventListener("mousemove",mouseHandler);
+                div0.removeEventListener("mouseup",mouseHandler);
+                div0.removeEventListener("mouseleave",mouseHandler)
+            }
+        }
+    </script>
+</body>
+</html>
